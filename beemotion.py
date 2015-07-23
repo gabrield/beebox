@@ -68,15 +68,15 @@ class BeeMotionDetec(Thread):
                 contour = contour.h_next()
                 #print bound_rect
 
-                pt1 = (bound_rect[0], bound_rect[1])
-                pt2 = (bound_rect[0] + bound_rect[2], bound_rect[1] + bound_rect[3])
+                pt1 = (bound_rect[0] + bound_rect[2]/2) #Ponto X + largura/2
+                pt2 = (bound_rect[1] + bound_rect[3]/2) #Ponto Y + altura/2
                 points.append(pt1)
                 #points.append(pt2)
                 #print pt1,pt2
                 self.lock.acquire()
                 time.sleep(0.5)
-                self.client.send( OSCMessage("/shast/beebox/x", pt1[0]))
-                self.client.send( OSCMessage("/shast/beebox/y", pt2[0]))
+                self.client.send( OSCMessage("/shast/beebox/x", pt1))
+                self.client.send( OSCMessage("/shast/beebox/y", pt2))
                 self.lock.release()
 
                 
